@@ -12,7 +12,7 @@ void plotPreliEffiReso(){
   gStyle->SetOptStat("0000");
 
   //Run2:Org---
-  TFile* mFileRun2 = TFile::Open("./run2codes/outputPWNewRecTPCRightEtacut.root","READ");
+  TFile* mFileRun2 = TFile::Open("./sourcePreli/outputPWNewRecTPCRightEtacut.root","READ");
   TH1F *hPtMCGenHadron1 = (TH1F *) mFileRun2->Get("hMCGenPtFTAll");
   TH1F *hPtMCRecHadron1 = (TH1F *) mFileRun2->Get("hMCRecPtFTAll");
   hPtMCGenHadron1->Sumw2();
@@ -20,7 +20,7 @@ void plotPreliEffiReso(){
   TH1D *hEffChRun2 = (TH1D *) hPtMCRecHadron1->Clone("hEffChRun2");
   success = hEffChRun2->Divide(hEffChRun2,hPtMCGenHadron1,1,1,"B");
   
-  TFile *mFileVar1 = TFile::Open("outputEffiEta1p2to2p2andPtResNclsCut70vz480cmNewPtBin2.root","READ");
+  TFile *mFileVar1 = TFile::Open("./sourcePreli/outputEffiEta1p2to2p2andPtResNclsCut70vz480cmNewPtBin2.root","READ");
   TH1D *hPtChGenVar1 = (TH1D *) mFileVar1->Get("hPtGenMC");
   TH1D *hPtChRecVar1 = (TH1D *) mFileVar1->Get("hPtRecMC");
   hPtChGenVar1->Sumw2();
@@ -29,7 +29,7 @@ void plotPreliEffiReso(){
   success = hEffChRun3Var1->Divide(hEffChRun3Var1,hPtChGenVar1,1,1,"B");
 
   
-  TFile *mFileVar2 = TFile::Open("outputEffiEta1p2to2p2andPtResNclsCut70vz495cmNewPtBin2.root","READ");
+  TFile *mFileVar2 = TFile::Open("./sourcePreli/outputEffiEta1p2to2p2andPtResNclsCut70vz495cmNewPtBin2.root","READ");
   TH1D *hPtChGenVar2 = (TH1D *) mFileVar2->Get("hPtGenMC");
   TH1D *hPtChRecVar2 = (TH1D *) mFileVar2->Get("hPtRecMC");
   hPtChGenVar2->Sumw2();
@@ -38,9 +38,9 @@ void plotPreliEffiReso(){
   success = hEffChRun3Var2->Divide(hEffChRun3Var2,hPtChGenVar2,1,1,"B");
 
 
+  
+
   Float_t xLabelPos = 0.12;
-
-
 
   
   TCanvas *can1 = GetCanvas("TPCEfficiency480",400,40,500,350,0,0,0.02,0.15,0.14,0.01);
@@ -49,9 +49,7 @@ void plotPreliEffiReso(){
   SetTitleTH1(hEffChRun3Var1,"Efficiency#times Acceptance",0.06,0.95,"p_{T}(GeV/c)",0.06,0.95);
   SetAxisTH1(hEffChRun3Var1,0.0,1.38,0.0,1.81,0.05,0.05);
   SetMarkerTH1(hEffChRun3Var1,"",24,0.9,2,2);
-  hEffChRun3Var1->Draw("P");
-  //SetMarkerTH1(hEffChRun3Var2,"",27,1.6,kGreen+3,kGreen+3);
-  //hEffChRun3Var2->Draw("PSAME");   
+  hEffChRun3Var1->Draw("P"); 
   tex = new TLatex(xLabelPos,1.25,"TPC Performance (ALICE Fixed Target)");
   tex->SetTextFont(42);
   tex->SetTextSize(0.0615);
@@ -73,7 +71,7 @@ void plotPreliEffiReso(){
   tex->SetLineWidth(2);
   tex->Draw();
 
-  can1->SaveAs("./outputPreliminaryO2/EfficienyChforFTVz480.pdf");
+  //can1->SaveAs("./EfficienyChforFTVz480.pdf");
 
 
   
@@ -107,7 +105,7 @@ void plotPreliEffiReso(){
   tex->SetLineWidth(2);
   tex->Draw();
   
-  can2->SaveAs("./outputPreliminaryO2/EfficienyChforFTVz495.pdf");
+  //can2->SaveAs("./EfficienyChforFTVz495.pdf");
 
 
 
@@ -152,7 +150,7 @@ void plotPreliEffiReso(){
   legend->AddEntry(hEffChRun3Var1,"Z_{target} = 480 cm","P");
   legend->AddEntry(hEffChRun3Var2,"Z_{target} = 495 cm","P");  
   legend->Draw();
-  can3->SaveAs("./outputPreliminaryO2/EfficienyChIPcomparison.pdf");
+  //can3->SaveAs("./EfficienyChIPcomparison.pdf");
   
   
   //------------------------------------------
@@ -226,7 +224,7 @@ void plotPreliEffiReso(){
   legend->AddEntry(hSigmaByMeanPtVar1,name2,"P");
   legend->AddEntry(hSigmaByMeanPtVar2,name3,"P");     
   //legend->Draw();  
-  canResPt1->SaveAs("./outputPreliminaryO2/PtResolutionFTVz480cm.pdf");
+  //canResPt1->SaveAs("./PtResolutionFTVz480cm.pdf");
 
 
 
@@ -237,8 +235,6 @@ void plotPreliEffiReso(){
   TCanvas *canResPt2 = GetCanvas("PtResIP495",550,200,500,350,0,0,0.02,0.15,0.14,0.01);
   canResPt2->cd();
   canResPt2->SetTicks();
-  //SetTitleTH1(hSigmaByMeanPtVar2,"#Deltap_{T}/p_{T} % ",0.06,0.95,"p_{T} (GeV/c)",0.06,0.95);
-  //SetAxisTH1(hSigmaByMeanPtVar2,-1.15,28,0.21,1.51,0.05,0.05);
   htempPt->Draw();
   SetMarkerTH1(hSigmaByMeanPtVar2,"",25,0.8,4,4);
   hSigmaByMeanPtVar2->Draw("PSAME");
@@ -274,7 +270,7 @@ void plotPreliEffiReso(){
   legend->AddEntry(hSigmaByMeanPtVar1,name2,"P");
   legend->AddEntry(hSigmaByMeanPtVar2,name3,"P");     
   //legend->Draw();  
-  canResPt2->SaveAs("./outputPreliminaryO2/PtResolutionFTVz495cm.pdf");
+  //canResPt2->SaveAs("./PtResolutionFTVz495cm.pdf");
 
 
 
@@ -283,8 +279,6 @@ void plotPreliEffiReso(){
   TCanvas *canResCompIP = GetCanvas("PtResIPComp",650,200,500,350,0,0,0.02,0.15,0.14,0.01);
   canResCompIP->cd();
   canResCompIP->SetTicks();
-  //SetTitleTH1(hSigmaByMeanPtVar1,"#Deltap_{T}/p_{T} % ",0.06,0.95,"p_{T} (GeV/c)",0.06,0.95);
-  //SetAxisTH1(hSigmaByMeanPtVar1,-1.15,28,0.21,1.51,0.05,0.05);
   htempPt->Draw();
   SetMarkerTH1(hSigmaByMeanPtVar1,"",24,0.8,2,2);
   hSigmaByMeanPtVar1->Draw("PSAME");
@@ -321,16 +315,7 @@ void plotPreliEffiReso(){
   legend->AddEntry(hSigmaByMeanPtVar1,"Z_{target} = 480 cm","P");
   legend->AddEntry(hSigmaByMeanPtVar2,"Z_{target} = 495 cm","P");     
   legend->Draw();  
-  canResCompIP->SaveAs("./outputPreliminaryO2/PtResolutionFTCompIP.pdf");
-
-
-
-
-
-
-
-
-
+  //canResCompIP->SaveAs("./PtResolutionFTCompIP.pdf");
   
   
 }//main ends
